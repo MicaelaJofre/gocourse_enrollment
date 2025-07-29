@@ -20,7 +20,7 @@ type repo struct {
 		log *log.Logger
 	}
 
-func NewRepo(db *gorm.DB, l *log.Logger) Repository {
+func NewRepository(db *gorm.DB, l *log.Logger) Repository {
 	return &repo{
 		db:  db,
 		log: l,

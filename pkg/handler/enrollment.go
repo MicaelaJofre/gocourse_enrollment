@@ -14,7 +14,7 @@ import (
 	httptransport "github.com/go-kit/kit/transport/http"
 )
 
-func NewUserHTTpServer(ctx context.Context, endpoints enrollment.Endpoint) http.Handler {
+func NewEnrollmentHTTpServer(ctx context.Context, endpoints enrollment.Endpoint) http.Handler {
 	mux := http.NewServeMux()
 
 	opts := []httptransport.ServerOption{
