@@ -27,8 +27,7 @@ func NewRepository(db *gorm.DB, l *log.Logger) Repository {
 	}
 }
 func (r *repo) Create(ctx context.Context, enroll *domain.Enrollment) error {
-
-	if err := r.db.WithContext(ctx).Create(enroll).Error; err != nil {
+if err := r.db.WithContext(ctx).Create(enroll).Error; err != nil {
 		r.log.Println(err)
 		return err
 	}

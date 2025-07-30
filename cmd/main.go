@@ -12,6 +12,9 @@ import (
 	"github.com/MicaelaJofre/gocourse_enrollment/pkg/bootstrap"
 	"github.com/MicaelaJofre/gocourse_enrollment/pkg/handler"
 	"github.com/joho/godotenv"
+
+	courseSdk "github.com/MicaelaJofre/go_course_sdk/course"
+	userSdk "github.com/MicaelaJofre/go_course_sdk/user"
 )
 
 func main() {
@@ -29,7 +32,7 @@ func main() {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 
-	db, err := bootstrap.DBConecction()
+	db, err := bootstrap.DBConnection()
 	if err != nil {
 		log.Fatalf("Error connecting to the database: %v", err)
 	}
@@ -39,10 +42,13 @@ func main() {
 		l.Fatal("PAGINATION_DEFAULT_PAGE environment variable not set.")
 	}
 
+	courseTrans := courseSdk.NewHttpClient(os.Getenv("API_COURSE_URL"), "")
+	userTrans := userSdk.NewHttpClient(os.Getenv("API_USER_URL"), "")
+
 	ctx := context.Background()
 
 	enrollmentRepo := enrollment.NewRepository(db, l)
-	enrollmentSrv := enrollment.NewService(l,enrollmentRepo)
+	enrollmentSrv := enrollment.NewService(l, userTrans, courseTrans,enrollmentRepo)
 	h :=handler.NewEnrollmentHTTpServer(ctx, enrollment.MakeEndpoint(enrollmentSrv, enrollment.Config{LimPageDef: pagLimitDef}))
 
 

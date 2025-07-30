@@ -3,14 +3,19 @@ module github.com/MicaelaJofre/gocourse_enrollment
 go 1.24.4
 
 require (
-	github.com/MicaelaJofre/gocourse_domain v0.0.1
+	github.com/MicaelaJofre/gocourse_domain v0.0.2
 	github.com/MicaelaJofre/gocourse_meta v0.0.1
 	gorm.io/gorm v1.30.0
 )
 
 require github.com/joho/godotenv v1.5.1
 
-require github.com/MicaelaJofre/go_lib_response v0.0.1
+require (
+	github.com/MicaelaJofre/go_course_sdk v0.0.1
+	github.com/MicaelaJofre/go_lib_response v0.0.1
+)
+
+require github.com/ncostamagna/go_http_client v0.0.3 // indirect
 
 require (
 	github.com/go-kit/kit v0.12.0

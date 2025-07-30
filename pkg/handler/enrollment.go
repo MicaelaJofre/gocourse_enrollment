@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
 	"strconv"
 	"strings"
 
@@ -21,7 +22,7 @@ func NewEnrollmentHTTpServer(ctx context.Context, endpoints enrollment.Endpoint)
 		httptransport.ServerErrorEncoder(encodeError),
 	}
 
-	mux.Handle("/enrollments", httptransport.NewServer(
+	mux.Handle("/enrollment", httptransport.NewServer(
 		endpoint.Endpoint(endpoints.Create),
 		decodeStoreEnrollment, 
 		encodeResponse,

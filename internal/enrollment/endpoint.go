@@ -4,10 +4,11 @@ import (
 	"context"
 	"errors"
 
+	courseSdk "github.com/MicaelaJofre/go_course_sdk/course"
+	userSdk "github.com/MicaelaJofre/go_course_sdk/user"
 	"github.com/MicaelaJofre/go_lib_response/response"
 	"github.com/MicaelaJofre/gocourse_meta/meta"
-	/* 	courseSdk "github.com/MicaelaJofre/go_course_sdk/course"
-	   	userSdk "github.com/MicaelaJofre/go_course_sdk/user" */)
+)
 
 type Controller func(ctx context.Context, request interface{}) (interface{}, error)
 
@@ -90,10 +91,10 @@ func makeCreateEndpoint(s Service) Controller {
 		enroll, err := s.Create(ctx, req.UserID, req.CourseID)
 		if err != nil {
 
-			/* if errors.As(err, &userSdk.ErrNotFound{}) ||
+			if errors.As(err, &userSdk.ErrNotFound{}) ||
 				errors.As(err, &courseSdk.ErrNotFound{}) {
 				return nil, response.NotFound(err.Error())
-			} */
+			}
 
 			return nil, response.InternalServerError(err.Error())
 		}
@@ -115,6 +116,10 @@ func makeUpdateEndpoint(s Service) Controller {
 
 			if errors.As(err, &ErrNotFound{}) {
 				return nil, response.NotFound(err.Error())
+			}
+
+			if errors.As(err, &ErrInvalidStatus{}) {
+				return nil, response.BadRequest(err.Error())
 			}
 
 			return nil, response.InternalServerError(err.Error())
