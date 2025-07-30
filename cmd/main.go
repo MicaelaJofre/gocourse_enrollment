@@ -42,7 +42,7 @@ func main() {
 		l.Fatal("PAGINATION_DEFAULT_PAGE environment variable not set.")
 	}
 
-	courseTrans := courseSdk.NewHttpClient(os.Getenv("API_COURSE_URL"), "")
+	courseTrans := courseSdk.NewHttpClient(os.Getenv("API_COURSE_URL"), os.Getenv("API_COURSE_TOKEN"))
 	userTrans := userSdk.NewHttpClient(os.Getenv("API_USER_URL"), "")
 
 	ctx := context.Background()
